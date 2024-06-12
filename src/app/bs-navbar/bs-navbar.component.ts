@@ -7,8 +7,9 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./bs-navbar.component.scss']
 })
 export class BsNavbarComponent {
-
-  constructor(public auth : AuthService) {}
+  isAdmin$ = this.auth.isAdmin$;
+  constructor(public auth : AuthService) {
+  }
 
   logout(){
       this.auth.logout()

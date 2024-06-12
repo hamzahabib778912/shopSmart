@@ -1,7 +1,9 @@
 // src/app/user.service.ts
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
 import firebase from 'firebase/compat/app';
+import { AppUser } from './models/app-user';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +17,9 @@ export class UserService {
       email: user.email
     }).then(() => console.log("User saved successfully"))
       .catch(error => console.error("Error saving user:", error));
+  }
+
+  getUser(uid: string): Observable<AppUser | null>{
+    return this.db.object<AppUser | null>('/users/' + uid).valueChanges()
   }
 }

@@ -23,7 +23,6 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms'; // Add this import
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,7 @@ import { AuthGuard } from './auth-guard.service';
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

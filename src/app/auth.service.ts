@@ -4,7 +4,7 @@ import 'firebase/compat/auth';
 import * as auth from 'firebase/auth'
 
 import firebase from 'firebase/compat/app';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 
@@ -12,12 +12,24 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class AuthService {
-  user$!: Observable<firebase.User  | null>;
-  constructor(private afAuth : AngularFireAuth, private router: Router, private userService: UserService) {
-    this.user$ =  this.afAuth.authState;
+  user$!: Observable<firebase.User | null>;
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  isAdmin$ = this.isAdminSubject.asObservable();
+
+
+  constructor(private afAuth: AngularFireAuth, private router: Router, private userService: UserService) {
+    this.user$ = this.afAuth.authState;
+
+    this.user$.subscribe(user => {
+      if (user) {
+        this.userService.getUser(user.uid).subscribe(dbUser => {
+          this.isAdminSubject.next(dbUser?.isAdmin || false);
+        });
+      }
+    });
   }
 
-  async login(){
+  async login() {
     await this.afAuth.signInWithPopup(new auth.GoogleAuthProvider()).then((response) => {
       this.router.navigate(['/']);
       if (response.user) {
@@ -30,7 +42,7 @@ export class AuthService {
     });
   }
 
-  async loginCredentials(email : string, password: string){
+  async loginCredentials(email: string, password: string) {
     await this.afAuth.signInWithEmailAndPassword(email, password).then((response) => {
       this.router.navigate(['/'])
       if (response.user) {
@@ -43,7 +55,8 @@ export class AuthService {
     });
   }
 
- async logout(){
+  async logout() {
     await this.afAuth.signOut().then(() => this.router.navigate(['/login']))
   }
+
 }
