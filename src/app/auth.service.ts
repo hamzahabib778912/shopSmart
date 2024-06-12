@@ -5,20 +5,24 @@ import * as auth from 'firebase/auth'
 
 import firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user$!: Observable<firebase.User  | null>;
-  constructor(private afAuth : AngularFireAuth) {
+  constructor(private afAuth : AngularFireAuth, private router: Router, private userService: UserService) {
     this.user$ =  this.afAuth.authState;
   }
 
   async login(){
-    debugger
-    await this.afAuth.signInWithRedirect(new auth.GoogleAuthProvider()).then((response) => {
-      debugger
+    await this.afAuth.signInWithPopup(new auth.GoogleAuthProvider()).then((response) => {
+      this.router.navigate(['/']);
+      if (response.user) {
+        this.userService.save(response.user);
+      }
       console.log("Yayyy Google done", response)
     }).catch(error => {
       debugger
@@ -28,7 +32,10 @@ export class AuthService {
 
   async loginCredentials(email : string, password: string){
     await this.afAuth.signInWithEmailAndPassword(email, password).then((response) => {
-      debugger
+      this.router.navigate(['/'])
+      if (response.user) {
+        this.userService.save(response.user);
+      }
       console.log("Ok done", response)
     }).catch(error => {
       debugger
@@ -36,7 +43,7 @@ export class AuthService {
     });
   }
 
-  logout(){
-    this.afAuth.signOut()
+ async logout(){
+    await this.afAuth.signOut().then(() => this.router.navigate(['/login']))
   }
 }

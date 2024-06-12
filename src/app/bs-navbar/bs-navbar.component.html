@@ -39,8 +39,8 @@
         <li class="nav-item dropdown" *ngIf="auth.user$ | async as user; else notLoggedIn" >
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <img src="https://via.placeholder.com/30" alt="Profile" class="rounded-circle" width="30" height="30">
-            {{user.email}}
+            <img [src]="user?.photoURL ? user.photoURL : 'https://via.placeholder.com/30'" alt="Profile" class="rounded-circle" width="30" height="30">
+            {{ user.displayName || user.email }}
           </a>
 
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
