@@ -11,21 +11,44 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AuthGuard } from './auth-guard.service';
 import { AdminAuthGuardService } from './admin-auth-guard.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'products', component: ProductsComponent},
-  {path: 'shopping-cart', component: ShoppingCartComponent},
-  {path: 'my/orders', component: MyOrdersComponent, canActivate:[AuthGuard]},
-  {path: 'check-out', component: CheckOutComponent, canActivate:[AuthGuard]},
-  {path: 'order-success', component: OrderSuccessComponent, canActivate:[AuthGuard]},
-  {path: 'login', component: LoginComponent},
-  {path: 'admin/products', component: AdminProductsComponent, canActivate:[AuthGuard, AdminAuthGuardService]},
-  {path: 'admin/orders', component: AdminOrdersComponent, canActivate:[AuthGuard, AdminAuthGuardService]},
-  ];
+  { path: '', component: HomeComponent },
+  { path: 'products', component: ProductsComponent },
+  { path: 'shopping-cart', component: ShoppingCartComponent },
+  { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
+  { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
+  {
+    path: 'order-success',
+    component: OrderSuccessComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'admin/products',
+    component: AdminProductsComponent,
+    canActivate: [AuthGuard, AdminAuthGuardService],
+  },
+  {
+    path: 'admin/products/new',
+    component: ProductFormComponent,
+    canActivate: [AuthGuard, AdminAuthGuardService],
+  },
+  {
+    path: 'admin/products/:id',
+    component: ProductFormComponent,
+    canActivate: [AuthGuard, AdminAuthGuardService],
+  },
+  {
+    path: 'admin/orders',
+    component: AdminOrdersComponent,
+    canActivate: [AuthGuard, AdminAuthGuardService],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

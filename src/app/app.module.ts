@@ -3,10 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-// import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-// import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
-// import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
@@ -23,6 +19,11 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms'; // Add this import
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { AdminAuthGuardService } from './admin-auth-guard.service';
+import { CategoryService } from './category.service';
+import { ProductService } from './product.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AuthGuard } from './auth-guard.service';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,10 +46,16 @@ import { AuthGuard } from './auth-guard.service';
     AngularFireModule.initializeApp(environment.fireBase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    ReactiveFormsModule
-    // NgbModule
+    ReactiveFormsModule,
+    NgbModule,
   ],
-  providers: [AuthService, AuthGuard],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthService,
+    AuthGuard,
+    AdminAuthGuardService,
+    CategoryService,
+    ProductService,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
