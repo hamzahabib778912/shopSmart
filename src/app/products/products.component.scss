@@ -1,0 +1,18 @@
+.cart-button{
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.active{
+  color: white;
+  background-color:rgb(52, 58, 64);
+}
+
+.d-grid {
+  grid-auto-rows: 1fr; /* Set rows to be equal height */
+}
+
+.sticky-top{
+  top: 50px
+}
