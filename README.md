@@ -11,6 +11,15 @@ This covers:
 - Live shopping cart
 - User's Specific cart information anmd control
 - Checkout Display, Clear cart
+- Realtime updates using Firebase realtime Database
+- Firebase as a backend for product, user, cart data manipulation and store.
+
+**Technology**:
+- Angular 13.*.*
+- Firebase 9.21.*
+- Bootstrap 5.*.*
+- rxjs 7.*.*
+- more...
 
 **Updates to follow in upcoming release
 
