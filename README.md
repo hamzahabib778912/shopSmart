@@ -1,9 +1,23 @@
 # Shopsmart
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.3.
+Live preview of this project can be seen at the following URL:
+https://shopsmart-7d467.web.app/
+
+This covers:
+- Authentication and Authorization
+- Sign in with Google
+- Product Creation, updation, deletion
+- Product preview
+- Live shopping cart
+- User's Specific cart information anmd control
+- Checkout Display, Clear cart
+
+**Updates to follow in upcoming release
+
 
 ## Development server
 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.3.
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
